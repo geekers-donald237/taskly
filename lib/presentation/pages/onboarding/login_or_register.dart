@@ -55,7 +55,7 @@ class LoginOrRegisterPage extends StatelessWidget {
                   children: [
                     LargeButton(
                       onPressed: () {},
-                      titleText: 'NEXT',
+                      titleText: 'login',
                       backgroundColor: Theme.of(context).primaryColor,
                       textColor: Theme.of(context).colorScheme.onSecondary,
                     ),
