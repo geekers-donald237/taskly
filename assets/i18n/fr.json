@@ -1,0 +1,16 @@
+{
+  "skip": "PASSER",
+  "next": "SUIVANT",
+  "back": "RETOUR",
+  "get_started": "COMMENCER",
+  "manage_tasks": "Gérez vos tâches",
+  "manage_tasks_description": "Vous pouvez facilement gérer toutes vos tâches quotidiennes dans DoMe gratuitement",
+  "create_daily_routine": "Créez une routine quotidienne",
+  "create_daily_routine_description": "Dans Uptodo, vous pouvez créer votre routine personnalisée pour rester productif",
+  "organize_tasks": "Organisez vos tâches",
+  "organize_tasks_description": "Vous pouvez organiser vos tâches quotidiennes en ajoutant vos tâches dans des catégories distinctes",
+  "welcome_to_uptodo": "Bienvenue sur Task Fly",
+  "login_or_create_account": "Veuillez vous connecter à votre compte ou créer un nouveau compte pour continuer",
+  "login": "connexion",
+  "create_account": "créer un compte"
+}

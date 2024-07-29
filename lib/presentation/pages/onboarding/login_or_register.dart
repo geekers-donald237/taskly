@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_sizer/flutter_sizer.dart';
 import 'package:taskly/presentation/components/buttons/large_button.dart';
 
-import '../../../core/utils/generics/custom_sizer.dart';
+import '../../../core/services/utils/custom_sizer.dart';
+
+import 'package:flutter/material.dart';
+
+import '../../../localization/app_localization.dart';
 
 class LoginOrRegisterPage extends StatelessWidget {
   const LoginOrRegisterPage({super.key});
@@ -14,21 +18,20 @@ class LoginOrRegisterPage extends StatelessWidget {
         child: Center(
           child: Column(
             children: [
-              // SizedBox(height: getHeight(2),),
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   SizedBox(
                     width: getWidth(5),
                   ),
-                  Icon(Icons.arrow_back_ios)
+                  const Icon(Icons.arrow_back_ios)
                 ],
               ),
               SizedBox(
                 height: getHeight(5),
               ),
               Text(
-                'Welcome to UpTodo',
+                AppLocalizations.of(context)!.translate('welcome_to_uptodo'),
                 style: TextStyle(
                   color: Theme.of(context).colorScheme.surface,
                   fontSize: 30.dp,
@@ -39,14 +42,14 @@ class LoginOrRegisterPage extends StatelessWidget {
                 height: getHeight(4),
               ),
               Text(
-                'Please login to your account or create new account to continue',
+                AppLocalizations.of(context)!.translate('login_or_create_account'),
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Theme.of(context).colorScheme.onSecondary,
                   fontSize: 16.dp,
                 ),
               ),
-              Spacer(),
+              const Spacer(),
               Padding(
                 padding: EdgeInsets.all(6.dp),
                 child: Column(
@@ -55,14 +58,14 @@ class LoginOrRegisterPage extends StatelessWidget {
                   children: [
                     LargeButton(
                       onPressed: () {},
-                      titleText: 'login',
+                      titleText: AppLocalizations.of(context)!.translate('login'),
                       backgroundColor: Theme.of(context).primaryColor,
                       textColor: Theme.of(context).colorScheme.onSecondary,
                     ),
                     SizedBox(height: getHeight(2.5)),
                     LargeButton(
                       onPressed: () {},
-                      titleText: 'create an account',
+                      titleText: AppLocalizations.of(context)!.translate('create_account'),
                       backgroundColor: Colors.transparent,
                       textColor: Theme.of(context).colorScheme.onSecondary,
                       borderColor: Theme.of(context).primaryColor,

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_sizer/flutter_sizer.dart';
 import 'package:swipeable_page_route/swipeable_page_route.dart';
-import 'package:taskly/core/utils/generics/custom_sizer.dart';
+import 'package:taskly/core/services/utils/custom_sizer.dart';
 import 'package:taskly/presentation/pages/onboarding/login_or_register.dart';
 
-import '../../../core/utils/gen/assets.gen.dart';
+import '../../../core/generics/gen/assets.gen.dart';
+import '../../../localization/app_localization.dart';
 import '../../components/buttons/custom_button.dart';
 import '../../components/indicator/onboard_indicator.dart';
 import '../../components/text_buttons/skip_text_button.dart';
@@ -35,15 +36,15 @@ class ThirdOnboardPage extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        OnBoardIndicator(),
+                        const OnBoardIndicator(),
                         SizedBox(
                           width: getWidth(3),
                         ),
-                        OnBoardIndicator(),
+                        const OnBoardIndicator(),
                         SizedBox(
                           width: getWidth(3),
                         ),
-                        OnBoardIndicator(
+                        const OnBoardIndicator(
                           isActive: true,
                         )
                       ],
@@ -52,7 +53,7 @@ class ThirdOnboardPage extends StatelessWidget {
                       height: getHeight(5),
                     ),
                     Text(
-                      'Orgonaize your tasks',
+                      AppLocalizations.of(context)!.translate('organize_tasks'),
                       style: TextStyle(
                         color: Theme.of(context).colorScheme.surface,
                         fontSize: 30.dp,
@@ -63,7 +64,8 @@ class ThirdOnboardPage extends StatelessWidget {
                       height: getHeight(4),
                     ),
                     Text(
-                      'You can organize your daily tasks by adding your tasks into separate categories',
+                      AppLocalizations.of(context)!
+                          .translate('organize_tasks_description'),
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Theme.of(context).colorScheme.onSecondary,
@@ -77,7 +79,7 @@ class ThirdOnboardPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     SkipTextButton(
-                      text: "BACK",
+                      text: AppLocalizations.of(context)!.translate('back'),
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
@@ -86,10 +88,12 @@ class ThirdOnboardPage extends StatelessWidget {
                       onPressed: () {
                         Navigator.of(context).push(SwipeablePageRoute(
                           canOnlySwipeFromEdge: true,
-                          builder: (BuildContext context) => LoginOrRegisterPage(),
+                          builder: (BuildContext context) =>
+                              const LoginOrRegisterPage(),
                         ));
                       },
-                      titleText: 'GET STARTED',
+                      titleText: AppLocalizations.of(context)!
+                          .translate('get_started'),
                     ),
                   ],
                 ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_sizer/flutter_sizer.dart';
 
-import '../../../core/utils/generics/custom_sizer.dart';
+import '../../../core/services/utils/custom_sizer.dart';
 
 class LargeButton extends StatelessWidget {
   final String titleText;
@@ -10,7 +10,7 @@ class LargeButton extends StatelessWidget {
   final Color textColor;
   final double fontSize;
 
-  const LargeButton({
+  const LargeButton({super.key,
     required this.titleText,
     required this.onPressed,
     this.borderColor = Colors.transparent,

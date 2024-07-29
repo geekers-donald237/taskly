@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_sizer/flutter_sizer.dart';
 import 'package:swipeable_page_route/swipeable_page_route.dart';
-import 'package:taskly/core/utils/generics/custom_sizer.dart';
+import 'package:taskly/core/services/utils/custom_sizer.dart';
 import 'package:taskly/presentation/pages/onboarding/second_onboard_page.dart';
 import 'package:taskly/presentation/pages/onboarding/third_onboard_page.dart';
 
-import '../../../core/utils/gen/assets.gen.dart';
+import '../../../core/generics/gen/assets.gen.dart';
+import '../../../localization/app_localization.dart';
 import '../../components/buttons/custom_button.dart';
 import '../../components/indicator/onboard_indicator.dart';
 import '../../components/text_buttons/skip_text_button.dart';
+
+import 'package:flutter/material.dart';
 
 class FirstOnboardPage extends StatelessWidget {
   const FirstOnboardPage({super.key});
@@ -23,11 +26,11 @@ class FirstOnboardPage extends StatelessWidget {
             child: Column(
               children: [
                 SkipTextButton(
-                  text: 'SKIP',
+                  text: AppLocalizations.of(context)!.translate('skip'),
                   onPressed: () {
                     Navigator.of(context).push(SwipeablePageRoute(
                       canOnlySwipeFromEdge: true,
-                      builder: (BuildContext context) => ThirdOnboardPage(),
+                      builder: (BuildContext context) => const ThirdOnboardPage(),
                     ));
                   },
                 ),
@@ -41,19 +44,19 @@ class FirstOnboardPage extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        OnBoardIndicator(
+                        const OnBoardIndicator(
                           isActive: true,
                         ),
                         SizedBox(
                           width: getWidth(3),
                         ),
-                        OnBoardIndicator(
+                        const OnBoardIndicator(
                           isActive: false,
                         ),
                         SizedBox(
                           width: getWidth(3),
                         ),
-                        OnBoardIndicator(
+                        const OnBoardIndicator(
                           isActive: false,
                         )
                       ],
@@ -62,7 +65,7 @@ class FirstOnboardPage extends StatelessWidget {
                       height: getHeight(5),
                     ),
                     Text(
-                      'Manage your tasks',
+                      AppLocalizations.of(context)!.translate('manage_tasks'),
                       style: TextStyle(
                         color: Theme.of(context).colorScheme.surface,
                         fontSize: 30.dp,
@@ -73,7 +76,7 @@ class FirstOnboardPage extends StatelessWidget {
                       height: getHeight(4),
                     ),
                     Text(
-                      'You can easily manage all of your daily tasks in DoMe for free',
+                      AppLocalizations.of(context)!.translate('manage_tasks_description'),
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Theme.of(context).colorScheme.onSecondary,
@@ -91,10 +94,10 @@ class FirstOnboardPage extends StatelessWidget {
                         Navigator.of(context).push(SwipeablePageRoute(
                           canOnlySwipeFromEdge: true,
                           builder: (BuildContext context) =>
-                              SecondOnboardPage(),
+                              const SecondOnboardPage(),
                         ));
                       },
-                      titleText: 'NEXT',
+                      titleText: AppLocalizations.of(context)!.translate('next'),
                     ),
                     SizedBox(
                       width: getWidth(0.5),
