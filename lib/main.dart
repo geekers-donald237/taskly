@@ -4,7 +4,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_sizer/flutter_sizer.dart';
 import 'package:taskly/presentation/blocs/app_bloc.dart';
-import 'package:taskly/presentation/pages/onboarding/first_onboard_page.dart';
+import 'package:taskly/presentation/pages/auth/login_page.dart';
 
 import 'core/generics/gen/fonts.gen.dart';
 import 'core/services/app_language/app_language.dart';
@@ -72,7 +72,7 @@ class MyApp extends StatelessWidget {
                   GlobalCupertinoLocalizations.delegate,
                 ],
                 themeMode: ThemeMode.dark,
-                home: const FirstOnboardPage(),
+                home: const LoginPage(),
               );
             },
           );

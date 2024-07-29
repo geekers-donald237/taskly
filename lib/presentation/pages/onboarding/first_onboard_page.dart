@@ -11,8 +11,6 @@ import '../../components/buttons/custom_button.dart';
 import '../../components/indicator/onboard_indicator.dart';
 import '../../components/text_buttons/skip_text_button.dart';
 
-import 'package:flutter/material.dart';
-
 class FirstOnboardPage extends StatelessWidget {
   const FirstOnboardPage({super.key});
 
@@ -30,7 +28,8 @@ class FirstOnboardPage extends StatelessWidget {
                   onPressed: () {
                     Navigator.of(context).push(SwipeablePageRoute(
                       canOnlySwipeFromEdge: true,
-                      builder: (BuildContext context) => const ThirdOnboardPage(),
+                      builder: (BuildContext context) =>
+                          const ThirdOnboardPage(),
                     ));
                   },
                 ),
@@ -76,7 +75,8 @@ class FirstOnboardPage extends StatelessWidget {
                       height: getHeight(4),
                     ),
                     Text(
-                      AppLocalizations.of(context)!.translate('manage_tasks_description'),
+                      AppLocalizations.of(context)!
+                          .translate('manage_tasks_description'),
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Theme.of(context).colorScheme.onSecondary,
@@ -97,7 +97,8 @@ class FirstOnboardPage extends StatelessWidget {
                               const SecondOnboardPage(),
                         ));
                       },
-                      titleText: AppLocalizations.of(context)!.translate('next'),
+                      titleText:
+                          AppLocalizations.of(context)!.translate('next'),
                     ),
                     SizedBox(
                       width: getWidth(0.5),

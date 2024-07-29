@@ -12,5 +12,21 @@
   "welcome_to_uptodo": "Bienvenue sur Task Fly",
   "login_or_create_account": "Veuillez vous connecter à votre compte ou créer un nouveau compte pour continuer",
   "login": "connexion",
-  "create_account": "créer un compte"
+  "create_account": "créer un compte",
+  "register": "S'inscrire",
+  "username": "Nom d'utilisateur",
+  "password": "Mot de passe",
+  "confirm_password": "Confirmer le mot de passe",
+  "enter_your_username": "Entrez votre nom d'utilisateur",
+  "enter_your_password": "Entrez votre mot de passe",
+  "confirm_your_password": "Confirmez votre mot de passe",
+  "email": "E-mail",
+  "enter_your_email": "Entrez votre e-mail",
+  "dont_have_account": "Vous n'avez pas de compte? ",
+  "already_have_account": "Vous avez déjà un compte? ",
+  "forgot_password": "Mot de passe oublié?",
+  "password_reset_email_sent": "E-mail de réinitialisation du mot de passe envoyé",
+  "or": "ou",
+  "login_with_google": "Se connecter avec Google",
+  "register_with_google": "S'inscrire avec Google"
 }

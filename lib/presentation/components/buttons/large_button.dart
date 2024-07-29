@@ -6,11 +6,13 @@ import '../../../core/services/utils/custom_sizer.dart';
 class LargeButton extends StatelessWidget {
   final String titleText;
   final VoidCallback onPressed;
-  final Color borderColor;final Color backgroundColor;
+  final Color borderColor;
+  final Color backgroundColor;
   final Color textColor;
   final double fontSize;
 
-  const LargeButton({super.key,
+  const LargeButton({
+    super.key,
     required this.titleText,
     required this.onPressed,
     this.borderColor = Colors.transparent,
@@ -34,7 +36,7 @@ class LargeButton extends StatelessWidget {
         child: Center(
           child: Text(
             titleText.toUpperCase(),
-            style:TextStyle(color: textColor, fontSize: fontSize.dp),
+            style: TextStyle(color: textColor, fontSize: fontSize.dp),
           ),
         ),
       ),

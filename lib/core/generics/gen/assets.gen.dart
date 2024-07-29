@@ -28,12 +28,28 @@ class $AssetsFontsGen {
   List<String> get values => [satoshi, satoshiB, satoshiL, satoshiM];
 }
 
+class $AssetsI18nGen {
+  const $AssetsI18nGen();
+
+  /// File path: assets/i18n/en.json
+  String get en => 'assets/i18n/en.json';
+
+  /// File path: assets/i18n/fr.json
+  String get fr => 'assets/i18n/fr.json';
+
+  /// List of all assets
+  List<String> get values => [en, fr];
+}
+
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
   /// File path: assets/images/clean_solid.png
   AssetGenImage get cleanSolid =>
       const AssetGenImage('assets/images/clean_solid.png');
+
+  /// File path: assets/images/google.png
+  AssetGenImage get google => const AssetGenImage('assets/images/google.png');
 
   /// File path: assets/images/logo.png
   AssetGenImage get logo => const AssetGenImage('assets/images/logo.png');
@@ -52,13 +68,14 @@ class $AssetsImagesGen {
 
   /// List of all assets
   List<AssetGenImage> get values =>
-      [cleanSolid, logo, onboard1, onboard2, onboard3];
+      [cleanSolid, google, logo, onboard1, onboard2, onboard3];
 }
 
 class Assets {
   Assets._();
 
   static const $AssetsFontsGen fonts = $AssetsFontsGen();
+  static const $AssetsI18nGen i18n = $AssetsI18nGen();
   static const $AssetsImagesGen images = $AssetsImagesGen();
 }
 
