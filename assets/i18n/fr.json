@@ -14,6 +14,7 @@
   "login": "connexion",
   "create_account": "créer un compte",
   "register": "S'inscrire",
+  "invalid_email_or_password": "Email ou mot de passe invalide",
   "username": "Nom d'utilisateur",
   "password": "Mot de passe",
   "confirm_password": "Confirmer le mot de passe",
@@ -30,6 +31,12 @@
   "login_with_google": "Se connecter avec Google",
   "register_with_google": "S'inscrire avec Google",
   "close": "Fermer",
-  "connected_to_internet": "Vous êtes connecté à Internet",
-  "lost_connection_to_internet": "Vous avez perdu la connexion à Internet"
+  "registration_failed": "Inscription échouée",
+  "passwords_do_not_match": "Les mots de passe ne correspondent pas",
+  "email_already_in_use": "L'email est déjà utilisé",
+  "weak_password": "Le mot de passe est trop faible",
+  "unknown_error": "Une erreur inconnue s'est produite",
+  "connected_to_internet": "Connecté à Internet",
+  "lost_connection_to_internet": "Connexion à Internet perdue",
+  "load_message": "Chargement...",
 }

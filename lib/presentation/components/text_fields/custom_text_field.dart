@@ -5,11 +5,14 @@ import '../../../core/services/utils/custom_sizer.dart';
 class CustomTextField extends StatelessWidget {
   final String label;
   final String placeholder;
+  final TextEditingController? controller;
 
   const CustomTextField({
     super.key,
     required this.label,
     required this.placeholder,
+    this.controller
+
   });
 
   @override
@@ -26,6 +29,7 @@ class CustomTextField extends StatelessWidget {
           ),
         ),
         TextField(
+          controller: controller,
           decoration: InputDecoration(
             hintText: placeholder,
             hintStyle:

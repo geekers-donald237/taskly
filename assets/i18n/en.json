@@ -21,6 +21,7 @@
   "enter_your_password": "Enter your Password",
   "confirm_your_password": "Confirm your Password",
   "email": "Email",
+  "invalid_email_or_password": "Invalid email or password",
   "enter_your_email": "Enter your Email",
   "dont_have_account": "Don't have an account? ",
   "already_have_account": "Already have an account? ",
@@ -30,6 +31,12 @@
   "login_with_google": "Login with Google",
   "register_with_google": "Register with Google",
   "close": "Close",
-  "connected_to_internet": "You are connected to the internet",
-  "lost_connection_to_internet": "You have lost connection to the internet"
+  "registration_failed": "Registration failed",
+  "passwords_do_not_match": "Passwords do not match",
+  "email_already_in_use": "Email is already in use",
+  "weak_password": "The password is too weak",
+  "unknown_error": "An unknown error occurred",
+  "connected_to_internet": "Connected to the internet",
+  "lost_connection_to_internet": "Lost connection to the internet",
+  "load_message": "Loading..."
 }

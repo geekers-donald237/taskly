@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 import '../../../localization/app_localization.dart';
 
@@ -27,5 +28,12 @@ class ToastService {
         ),
       ),
     );
+  }
+  void showStatusLoader(String title) {
+    EasyLoading.show(
+        indicator: const CircularProgressIndicator(),
+        status: title,
+        maskType: EasyLoadingMaskType.black,
+        dismissOnTap: false);
   }
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class AppLanguage {
+class AppLanguageService {
   Locale _appLocale = const Locale('en');
 
   Locale get appLocale => _appLocale;

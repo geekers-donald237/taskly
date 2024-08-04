@@ -5,12 +5,14 @@ import '../../../core/services/utils/custom_sizer.dart';
 class PasswordTextField extends StatefulWidget {
   final String label;
   final String placeholder;
+  final TextEditingController? controller;
 
   const PasswordTextField({
-    Key? key,
+    super.key,
     required this.label,
     required this.placeholder,
-  }) : super(key: key);
+    this.controller
+  });
 
   @override
   State<PasswordTextField> createState() => _PasswordTextFieldState();
@@ -33,6 +35,7 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
           ),
         ),
         TextField(
+          controller: widget.controller,
           obscureText: _obscureText,
           decoration: InputDecoration(
             hintText: widget.placeholder,
