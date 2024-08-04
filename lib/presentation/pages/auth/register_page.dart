@@ -71,7 +71,7 @@ class RegisterPage extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 8.0),
                       child: Text(
                         AppLocalizations.of(context)!.translate('or'),
-                        style: TextStyle(color: Colors.white70),
+                        style: TextStyle(color: Colors.white70 , fontSize: 16.dp),
                       ),
                     ),
                     Expanded(child: Divider(color: Colors.white70)),

@@ -1,13 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_sizer/flutter_sizer.dart';
-import 'package:taskly/presentation/blocs/app_bloc.dart';
+import 'package:flutter_sizer/flutter_sizer.dart';
+import 'package:provider/provider.dart';
+import 'package:taskly/presentation/blocs/app_bloc/app_bloc.dart';
+import 'package:taskly/presentation/blocs/connectivity_bloc/connectivity_bloc.dart';
+import 'package:taskly/presentation/pages/auth/login_page.dart';
 import 'package:taskly/presentation/pages/auth/login_page.dart';
 
 import 'core/generics/gen/fonts.gen.dart';
+import 'core/generics/gen/fonts.gen.dart';
 import 'core/services/app_language/app_language.dart';
+import 'core/services/app_language/app_language.dart';
+import 'core/services/network/network_service.dart';
+import 'core/services/notification/toast_service.dart';
 import 'localization/app_localization.dart';
 
 void main() async {
@@ -26,8 +39,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => AppBloc(appLanguage.appLocale),
+    return MultiProvider(
+      providers: [
+        BlocProvider(
+            create: (_) => ConnectivityBloc()..add(OnConnectivityEvent())),
+        BlocProvider(create: (_) => AppBloc(appLanguage.appLocale)),
+      ],
       child: BlocBuilder<AppBloc, AppState>(
         builder: (context, state) {
           return FlutterSizer(
@@ -72,7 +89,24 @@ class MyApp extends StatelessWidget {
                   GlobalCupertinoLocalizations.delegate,
                 ],
                 themeMode: ThemeMode.dark,
-                home: const LoginPage(),
+                builder: EasyLoading.init(),
+                home: BlocListener<ConnectivityBloc, ConnectivityState>(
+                  listener: (context, state) {
+                    if (state is ConnectivitySuccessState) {
+                      ToastService().showSnackbar(
+                        context,
+                        AppLocalizations.of(context)!.translate('connected_to_internet'),
+                      );
+                    } else if (state is ConnectivityFailureState) {
+                      ToastService().showSnackbar(
+                        context,
+                        AppLocalizations.of(context)!.translate('lost_connection_to_internet'),
+                        isError: true,
+                      );
+                    }
+                  },
+                  child: const LoginPage(),
+                ),
               );
             },
           );

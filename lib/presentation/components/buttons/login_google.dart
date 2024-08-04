@@ -16,29 +16,35 @@ class LoginGoogle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      height: getHeight(6),
-      decoration: BoxDecoration(
-        color: Colors.transparent,
-        borderRadius: BorderRadius.circular(4.dp),
-        border: Border.all(color: Theme.of(context).primaryColor),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Assets.images.google.image(),
-          TextButton(
-            onPressed: onPressed,
-            child: Center(
+    return GestureDetector(
+      onTap: onPressed,
+      child: Container(
+        width: double.infinity,
+        height: getHeight(6),
+        decoration: BoxDecoration(
+          color: Colors.transparent,
+          borderRadius: BorderRadius.circular(4.dp),
+          border: Border.all(color: Theme.of(context).primaryColor),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Assets.images.google.image(),
+            SizedBox(
+              width: getWidth(5),
+            ),
+            Center(
               child: Text(
                 titleText,
                 overflow: TextOverflow.ellipsis,
-                style: TextStyle(color: Theme.of(context).colorScheme.surface, fontSize: 16.dp , fontWeight: FontWeight.w400),
+                style: TextStyle(
+                    color: Theme.of(context).colorScheme.surface,
+                    fontSize: 16.dp,
+                    fontWeight: FontWeight.w400),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

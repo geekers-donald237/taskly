@@ -28,5 +28,8 @@
   "password_reset_email_sent": "Password reset email sent",
   "or": "or",
   "login_with_google": "Login with Google",
-  "register_with_google": "Register with Google"
+  "register_with_google": "Register with Google",
+  "close": "Close",
+  "connected_to_internet": "You are connected to the internet",
+  "lost_connection_to_internet": "You have lost connection to the internet"
 }

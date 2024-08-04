@@ -28,5 +28,8 @@
   "password_reset_email_sent": "E-mail de réinitialisation du mot de passe envoyé",
   "or": "ou",
   "login_with_google": "Se connecter avec Google",
-  "register_with_google": "S'inscrire avec Google"
+  "register_with_google": "S'inscrire avec Google",
+  "close": "Fermer",
+  "connected_to_internet": "Vous êtes connecté à Internet",
+  "lost_connection_to_internet": "Vous avez perdu la connexion à Internet"
 }
