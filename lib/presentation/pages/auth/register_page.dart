@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_sizer/flutter_sizer.dart';
 import 'package:swipeable_page_route/swipeable_page_route.dart';
-import 'package:taskly/presentation/pages/auth/login_page.dart';
-
 import '../../../core/services/notification/toast_service.dart';
 import '../../../core/services/utils/custom_sizer.dart';
 import '../../../localization/app_localization.dart';
@@ -15,6 +13,8 @@ import '../../components/buttons/large_button.dart';
 import '../../components/buttons/login_google.dart';
 import '../../components/text_fields/custom_text_field.dart';
 import '../../components/text_fields/password_text_field.dart';
+import '../home/home_screen.dart';
+import 'login_page.dart';
 
 class RegisterPage extends StatelessWidget {
   const RegisterPage({super.key});
@@ -94,7 +94,15 @@ class RegisterPage extends StatelessWidget {
                       ToastService()
                           .showSnackbar(context, errorMessage, isError: true);
                     } else if (state is AuthSuccessState) {
-                      ToastService().showSnackbar(context, "success");
+                      ToastService().showSnackbar(context, AppLocalizations.of(context)!
+                          .translate('registration_success'),);
+                      Navigator.of(context).pushAndRemoveUntil(
+                        SwipeablePageRoute(
+                          canOnlySwipeFromEdge: true,
+                          builder: (BuildContext context) => const MainScreen(),
+                        ),
+                            (Route<dynamic> route) => false,
+                      );
                     }
                   },
                   child: BlocBuilder<ConnectivityBloc, ConnectivityState>(
@@ -108,7 +116,7 @@ class RegisterPage extends StatelessWidget {
                           return LargeButton(
                             onPressed: () {
                               if (connectivityState
-                                  is ConnectivitySuccessState) {
+                              is ConnectivitySuccessState) {
                                 if (passwordController.text ==
                                     confirmPasswordController.text) {
                                   BlocProvider.of<AuthBloc>(context).add(
@@ -134,7 +142,7 @@ class RegisterPage extends StatelessWidget {
                                 .translate('register'),
                             backgroundColor: Theme.of(context).primaryColor,
                             textColor:
-                                Theme.of(context).colorScheme.onSecondary,
+                            Theme.of(context).colorScheme.onSecondary,
                           );
                         },
                       );
@@ -150,7 +158,7 @@ class RegisterPage extends StatelessWidget {
                       child: Text(
                         AppLocalizations.of(context)!.translate('or'),
                         style:
-                            TextStyle(color: Colors.white70, fontSize: 16.dp),
+                        TextStyle(color: Colors.white70, fontSize: 16.dp),
                       ),
                     ),
                     Expanded(child: Divider(color: Colors.white70)),
@@ -160,7 +168,11 @@ class RegisterPage extends StatelessWidget {
                 LoginGoogle(
                   titleText: AppLocalizations.of(context)!
                       .translate('register_with_google'),
-                  onPressed: () {},
+                  onPressed: () {
+                    BlocProvider.of<AuthBloc>(context).add(
+                      RegisterWithGoogleEvent(),
+                    );
+                  },
                 ),
                 SizedBox(height: getHeight(8)),
                 GestureDetector(

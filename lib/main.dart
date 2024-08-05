@@ -1,52 +1,54 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_sizer/flutter_sizer.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:taskly/presentation/blocs/app_bloc/app_bloc.dart';
 import 'package:taskly/presentation/blocs/auth_bloc/auth_bloc.dart';
 import 'package:taskly/presentation/blocs/connectivity_bloc/connectivity_bloc.dart';
-import 'package:taskly/presentation/pages/auth/login_page.dart';
 
-import 'core/generics/gen/fonts.gen.dart';
+import 'package:taskly/presentation/pages/auth/login_page.dart';
+import 'package:taskly/presentation/pages/home/home_screen.dart';
 import 'core/services/app_language/app_language.dart';
-import 'core/services/firebase/firebase_auth_service.dart';
-import 'core/services/notification/toast_service.dart';
 import 'data/repositories/auth_repository_impl.dart';
+import 'data/sources/local/local_storage_impl.dart';
 import 'domain/usecases/login_usecase.dart';
 import 'domain/usecases/register_usecase.dart';
+import 'domain/usecases/logout_usecase.dart';
+import 'domain/usecases/sign_in_with_google_usecase.dart';
+import 'domain/usecases/register_with_google_usecase.dart';
 import 'localization/app_localization.dart';
 
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
-  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
-
-  // Initialiser Firebase
   await Firebase.initializeApp();
+  await GetStorage.init();
 
-  AppLanguageService appLanguage = AppLanguageService();
+  AppLanguage appLanguage = AppLanguage();
   await appLanguage.fetchLocale();
 
-  runApp(MyApp(appLanguage: appLanguage));
-  FlutterNativeSplash.remove();
+  final localStorageService = LocalStorageImpl();
+  final String? userToken = localStorageService.getToken();
+
+  runApp(MyApp(appLanguage: appLanguage, userToken: userToken));
 }
 
 class MyApp extends StatelessWidget {
-  final AppLanguageService appLanguage;
+  final AppLanguage appLanguage;
+  final String? userToken;
 
-  const MyApp({required this.appLanguage});
+  const MyApp({required this.appLanguage, this.userToken});
 
   @override
   Widget build(BuildContext context) {
-    final FirebaseAuthService firebaseAuthService =
-        FirebaseAuthService(FirebaseAuth.instance);
-    final AuthRepositoryImpl authRepository =
-        AuthRepositoryImpl(firebaseAuthService);
-    final LoginUseCase loginUseCase = LoginUseCase(authRepository);
-    final RegisterUseCase registerUseCase = RegisterUseCase(authRepository);
+    final authRepository = AuthRepositoryImpl(FirebaseAuth.instance, LocalStorageImpl());
+    final loginUseCase = LoginUseCase(authRepository);
+    final registerUseCase = RegisterUseCase(authRepository);
+    final logoutUseCase = LogoutUseCase(authRepository);
+    final signInWithGoogleUseCase = SignInWithGoogleUseCase(authRepository);
+    final registerWithGoogleUseCase = RegisterWithGoogleUseCase(authRepository);
 
     return MultiBlocProvider(
       providers: [
@@ -54,7 +56,7 @@ class MyApp extends StatelessWidget {
           create: (_) => AppBloc(appLanguage.appLocale),
         ),
         BlocProvider(
-          create: (_) => AuthBloc(loginUseCase, registerUseCase),
+          create: (_) => AuthBloc(loginUseCase, registerUseCase, logoutUseCase, signInWithGoogleUseCase, registerWithGoogleUseCase, LocalStorageImpl()),
         ),
         BlocProvider(
           create: (_) => ConnectivityBloc()..add(OnConnectivityEvent()),
@@ -68,7 +70,7 @@ class MyApp extends StatelessWidget {
                 title: 'TaskFly',
                 debugShowCheckedModeBanner: false,
                 theme: ThemeData(
-                  fontFamily: FontFamily.satoshi,
+                  fontFamily: 'Satoshi',
                   primaryColor: const Color.fromRGBO(136, 117, 255, 1.0),
                   primaryColorDark: const Color(0xFF3700B3),
                   colorScheme: ColorScheme.fromSeed(
@@ -81,7 +83,7 @@ class MyApp extends StatelessWidget {
                   useMaterial3: true,
                 ),
                 darkTheme: ThemeData(
-                  fontFamily: FontFamily.satoshi,
+                  fontFamily: 'Satoshi',
                   primaryColor: const Color.fromRGBO(136, 117, 255, 1.0),
                   primaryColorDark: const Color(0xFF3700B3),
                   colorScheme: ColorScheme.fromSeed(
@@ -104,26 +106,7 @@ class MyApp extends StatelessWidget {
                   GlobalCupertinoLocalizations.delegate,
                 ],
                 themeMode: ThemeMode.dark,
-                builder: EasyLoading.init(),
-                home: BlocListener<ConnectivityBloc, ConnectivityState>(
-                  listener: (context, state) {
-                    if (state is ConnectivitySuccessState) {
-                      ToastService().showSnackbar(
-                        context,
-                        AppLocalizations.of(context)!
-                            .translate('connected_to_internet'),
-                      );
-                    } else if (state is ConnectivityFailureState) {
-                      ToastService().showSnackbar(
-                        context,
-                        AppLocalizations.of(context)!
-                            .translate('lost_connection_to_internet'),
-                        isError: true,
-                      );
-                    }
-                  },
-                  child: const LoginPage(),
-                ),
+                home: userToken != null ? const MainScreen() : const LoginPage(),
               );
             },
           );

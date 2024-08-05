@@ -11,7 +11,7 @@
   "organize_tasks_description": "You can organize your daily tasks by adding your tasks into separate categories",
   "welcome_to_uptodo": "Welcome to TaskLy",
   "login_or_create_account": "Please login to your account or create new account to continue",
-  "create_account": "create an account",
+  "create_account": "Create an account",
   "login": "Login",
   "register": "Register",
   "username": "Username",
@@ -33,10 +33,14 @@
   "close": "Close",
   "registration_failed": "Registration failed",
   "passwords_do_not_match": "Passwords do not match",
-  "email_already_in_use": "Email is already in use",
+  "email_already_in_use": "Email already in use",
   "weak_password": "The password is too weak",
   "unknown_error": "An unknown error occurred",
   "connected_to_internet": "Connected to the internet",
   "lost_connection_to_internet": "Lost connection to the internet",
-  "load_message": "Loading..."
+  "load_message": "Loading...",
+  "google_sign_in_failed": "Google sign-in failed",
+  "google_register_failed": "Google registration failed",
+  "login_success": "You have successfully logged into your account",
+  "registration_success": "Your account has been successfully created"
 }
