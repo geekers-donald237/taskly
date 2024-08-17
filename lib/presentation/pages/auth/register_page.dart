@@ -13,7 +13,7 @@ import '../../components/buttons/large_button.dart';
 import '../../components/buttons/login_google.dart';
 import '../../components/text_fields/custom_text_field.dart';
 import '../../components/text_fields/password_text_field.dart';
-import '../home/home_screen.dart';
+import '../home/main_screen.dart';
 import 'login_page.dart';
 
 class RegisterPage extends StatelessWidget {

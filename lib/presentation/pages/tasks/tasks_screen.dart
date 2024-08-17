@@ -2,17 +2,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_sizer/flutter_sizer.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:task_manager_app/components/custom_app_bar.dart';
-import 'package:task_manager_app/tasks/presentation/bloc/tasks_bloc.dart';
-import 'package:task_manager_app/components/build_text_field.dart';
-import 'package:task_manager_app/tasks/presentation/widget/task_item_view.dart';
-import 'package:task_manager_app/utils/color_palette.dart';
-import 'package:task_manager_app/utils/util.dart';
-
-import '../../../components/widgets.dart';
-import '../../../routes/pages.dart';
-import '../../../utils/font_sizes.dart';
+import 'package:swipeable_page_route/swipeable_page_route.dart';
+import 'package:taskly/presentation/pages/tasks/new_task_screen.dart';
+import 'package:taskly/presentation/pages/tasks/widgets/task_view.dart';
+import '../../../core/services/notification/toast_service.dart';
+import '../../blocs/tasks_bloc/tasks_bloc.dart';
+import '../../components/app_bar/custom_app_bar.dart';
+import '../../components/text_fields/build_text_field.dart';
+import '../../components/widget.dart';
 
 class TasksScreen extends StatefulWidget {
   const TasksScreen({super.key});
@@ -39,7 +38,7 @@ class _TasksScreenState extends State<TasksScreen> {
         ),
         child: ScaffoldMessenger(
             child: Scaffold(
-          backgroundColor: kWhiteColor,
+          backgroundColor: Theme.of(context).colorScheme.onPrimary,
           appBar: CustomAppBar(
             title: 'Hi Jerome',
             showBackArrow: false,
@@ -89,8 +88,8 @@ class _TasksScreenState extends State<TasksScreen> {
                           ),
                           buildText(
                               'Sort by date',
-                              kBlackColor,
-                              textSmall,
+                              Colors.black,
+                              12.dp,
                               FontWeight.normal,
                               TextAlign.start,
                               TextOverflow.clip)
@@ -110,8 +109,8 @@ class _TasksScreenState extends State<TasksScreen> {
                           ),
                           buildText(
                               'Completed tasks',
-                              kBlackColor,
-                              textSmall,
+                              Colors.black,
+                              12.dp,
                               FontWeight.normal,
                               TextAlign.start,
                               TextOverflow.clip)
@@ -131,8 +130,8 @@ class _TasksScreenState extends State<TasksScreen> {
                           ),
                           buildText(
                               'Pending tasks',
-                              kBlackColor,
-                              textSmall,
+                              Colors.black,
+                              12.dp,
                               FontWeight.normal,
                               TextAlign.start,
                               TextOverflow.clip)
@@ -156,8 +155,8 @@ class _TasksScreenState extends State<TasksScreen> {
                   child: BlocConsumer<TasksBloc, TasksState>(
                       listener: (context, state) {
                     if (state is LoadTaskFailure) {
-                      ScaffoldMessenger.of(context)
-                          .showSnackBar(getSnackBar(state.error, kRed));
+                      ToastService()
+                          .showSnackbar(context, state.error, isError: true);
                     }
 
                     if (state is AddTaskFailure || state is UpdateTaskFailure) {
@@ -174,8 +173,8 @@ class _TasksScreenState extends State<TasksScreen> {
                       return Center(
                         child: buildText(
                             state.error,
-                            kBlackColor,
-                            textMedium,
+                            Colors.black,
+                            14.dp,
                             FontWeight.normal,
                             TextAlign.center,
                             TextOverflow.clip),
@@ -190,11 +189,14 @@ class _TasksScreenState extends State<TasksScreen> {
                                     hint: "Search recent task",
                                     controller: searchController,
                                     inputType: TextInputType.text,
-                                    prefixIcon: const Icon(
+                                    prefixIcon: Icon(
                                       Icons.search,
-                                      color: kGrey2,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onSecondary,
                                     ),
-                                    fillColor: kWhiteColor,
+                                    fillColor:
+                                        Theme.of(context).colorScheme.onPrimary,
                                     onChange: (value) {
                                       context.read<TasksBloc>().add(
                                           SearchTaskEvent(keywords: value));
@@ -212,8 +214,10 @@ class _TasksScreenState extends State<TasksScreen> {
                                   },
                                   separatorBuilder:
                                       (BuildContext context, int index) {
-                                    return const Divider(
-                                      color: kGrey3,
+                                    return Divider(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onSecondary,
                                     );
                                   },
                                 ))
@@ -234,15 +238,15 @@ class _TasksScreenState extends State<TasksScreen> {
                                   ),
                                   buildText(
                                       'Schedule your tasks',
-                                      kBlackColor,
-                                      textBold,
+                                      Colors.black,
+                                      30.dp,
                                       FontWeight.w600,
                                       TextAlign.center,
                                       TextOverflow.clip),
                                   buildText(
                                       'Manage your task schedule easily\nand efficiently',
-                                      kBlackColor.withOpacity(.5),
-                                      textSmall,
+                                      Colors.black.withOpacity(.5),
+                                      12.dp,
                                       FontWeight.normal,
                                       TextAlign.center,
                                       TextOverflow.clip),
@@ -253,12 +257,15 @@ class _TasksScreenState extends State<TasksScreen> {
                     return Container();
                   }))),
           floatingActionButton: FloatingActionButton(
-              child: const Icon(
+              child: Icon(
                 Icons.add_circle,
-                color: kPrimaryColor,
+                color: Theme.of(context).primaryColor,
               ),
               onPressed: () {
-                Navigator.pushNamed(context, Pages.createNewTask);
+                Navigator.of(context).push(SwipeablePageRoute(
+                  canOnlySwipeFromEdge: true,
+                  builder: (BuildContext context) => const NewTaskScreen(),
+                ));
               }),
         )));
   }

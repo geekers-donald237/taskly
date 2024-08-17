@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_sizer/flutter_sizer.dart';
 import 'package:table_calendar/table_calendar.dart';
-import 'package:task_manager_app/components/widgets.dart';
-import 'package:task_manager_app/tasks/data/local/model/task_model.dart';
-import 'package:task_manager_app/utils/font_sizes.dart';
+import 'package:table_calendar/table_calendar.dart';
 
-import '../../../components/custom_app_bar.dart';
-import '../../../utils/color_palette.dart';
-import '../../../utils/util.dart';
-import '../bloc/tasks_bloc.dart';
-import '../../../components/build_text_field.dart';
+import '../../../core/services/notification/toast_service.dart';
+import '../../../core/services/utils/utils.dart';
+import '../../../data/models/task_model.dart';
+import '../../blocs/tasks_bloc/tasks_bloc.dart';
+import '../../components/app_bar/custom_app_bar.dart';
+import '../../components/text_fields/build_text_field.dart';
+import '../../components/widget.dart';
 
 class UpdateTaskScreen extends StatefulWidget {
   final TaskModel taskModel;
@@ -65,7 +69,7 @@ class _UpdateTaskScreenState extends State<UpdateTaskScreen> {
           statusBarColor: Colors.transparent,
         ),
         child: Scaffold(
-            backgroundColor: kWhiteColor,
+            backgroundColor: Theme.of(context).colorScheme.onPrimary,
             appBar: const CustomAppBar(
               title: 'Update Task',
             ),
@@ -77,8 +81,8 @@ class _UpdateTaskScreenState extends State<UpdateTaskScreen> {
                     child: BlocConsumer<TasksBloc, TasksState>(
                         listener: (context, state) {
                       if (state is UpdateTaskFailure) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                            getSnackBar(state.error, kRed));
+                        ToastService()
+                            .showSnackbar(context, state.error, isError: true);
                       }
                       if (state is UpdateTaskSuccess) {
                         Navigator.pop(context);
@@ -118,15 +122,15 @@ class _UpdateTaskScreenState extends State<UpdateTaskScreen> {
                             padding: const EdgeInsets.symmetric(
                                 vertical: 10, horizontal: 20),
                             decoration: BoxDecoration(
-                                color: kPrimaryColor.withOpacity(.1),
+                                color: Theme.of(context).primaryColor.withOpacity(.1),
                                 borderRadius:
                                     const BorderRadius.all(Radius.circular(5))),
                             child: buildText(
                                 _rangeStart != null && _rangeEnd != null
                                     ? 'Task starting at ${formatDate(dateTime: _rangeStart.toString())} - ${formatDate(dateTime: _rangeEnd.toString())}'
                                     : 'Select a date range',
-                                kPrimaryColor,
-                                textSmall,
+                                Theme.of(context).primaryColor,
+                                12.dp,
                                 FontWeight.w400,
                                 TextAlign.start,
                                 TextOverflow.clip),
@@ -134,8 +138,8 @@ class _UpdateTaskScreenState extends State<UpdateTaskScreen> {
                           const SizedBox(height: 20),
                           buildText(
                               'Title',
-                              kBlackColor,
-                              textMedium,
+                              Colors.black,
+                              14.dp,
                               FontWeight.bold,
                               TextAlign.start,
                               TextOverflow.clip),
@@ -146,15 +150,15 @@ class _UpdateTaskScreenState extends State<UpdateTaskScreen> {
                               hint: "Task Title",
                               controller: title,
                               inputType: TextInputType.text,
-                              fillColor: kWhiteColor,
+                              fillColor: Theme.of(context).colorScheme.onPrimary,
                               onChange: (value) {}),
                           const SizedBox(
                             height: 20,
                           ),
                           buildText(
                               'Description',
-                              kBlackColor,
-                              textMedium,
+                              Colors.black,
+                              14.dp,
                               FontWeight.bold,
                               TextAlign.start,
                               TextOverflow.clip),
@@ -165,7 +169,7 @@ class _UpdateTaskScreenState extends State<UpdateTaskScreen> {
                               hint: "Task Description",
                               controller: description,
                               inputType: TextInputType.multiline,
-                              fillColor: kWhiteColor,
+                              fillColor: Theme.of(context).colorScheme.onPrimary,
                               onChange: (value) {}),
                           const SizedBox(height: 20),
                           SizedBox(
@@ -177,7 +181,7 @@ class _UpdateTaskScreenState extends State<UpdateTaskScreen> {
                                           Colors.white),
                                   backgroundColor:
                                       MaterialStateProperty.all<Color>(
-                                          kPrimaryColor),
+                                          Theme.of(context).primaryColor),
                                   shape: MaterialStateProperty.all<
                                       RoundedRectangleBorder>(
                                     RoundedRectangleBorder(
@@ -201,8 +205,8 @@ class _UpdateTaskScreenState extends State<UpdateTaskScreen> {
                                   padding: const EdgeInsets.all(15),
                                   child: buildText(
                                       'Update',
-                                      kWhiteColor,
-                                      textMedium,
+                                      Theme.of(context).colorScheme.onPrimary,
+                                      14.dp,
                                       FontWeight.w600,
                                       TextAlign.center,
                                       TextOverflow.clip),

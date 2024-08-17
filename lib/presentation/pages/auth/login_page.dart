@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_sizer/flutter_sizer.dart';
 import 'package:swipeable_page_route/swipeable_page_route.dart';
+
 import '../../../core/services/notification/toast_service.dart';
 import '../../../core/services/utils/custom_sizer.dart';
 import '../../../localization/app_localization.dart';
@@ -13,7 +14,7 @@ import '../../components/buttons/large_button.dart';
 import '../../components/buttons/login_google.dart';
 import '../../components/text_fields/custom_text_field.dart';
 import '../../components/text_fields/password_text_field.dart';
-import '../home/home_screen.dart';
+import '../home/main_screen.dart';
 import 'forget_pwd_page.dart';
 import 'register_page.dart';
 
@@ -69,7 +70,7 @@ class LoginPage extends StatelessWidget {
                         Navigator.of(context).push(SwipeablePageRoute(
                           canOnlySwipeFromEdge: true,
                           builder: (BuildContext context) =>
-                          const ForgotPasswordPage(),
+                              const ForgotPasswordPage(),
                         ));
                       },
                       child: Text(
@@ -106,13 +107,17 @@ class LoginPage extends StatelessWidget {
                       ToastService()
                           .showSnackbar(context, errorMessage, isError: true);
                     } else if (state is AuthSuccessState) {
-                      ToastService().showSnackbar(context, AppLocalizations.of(context)!
-                          .translate('login_success'),);                      Navigator.of(context).pushAndRemoveUntil(
+                      ToastService().showSnackbar(
+                        context,
+                        AppLocalizations.of(context)!
+                            .translate('login_success'),
+                      );
+                      Navigator.of(context).pushAndRemoveUntil(
                         SwipeablePageRoute(
                           canOnlySwipeFromEdge: true,
                           builder: (BuildContext context) => const MainScreen(),
                         ),
-                            (Route<dynamic> route) => false,
+                        (Route<dynamic> route) => false,
                       );
                     }
                   },
@@ -121,12 +126,13 @@ class LoginPage extends StatelessWidget {
                       return BlocBuilder<AuthBloc, AuthState>(
                         builder: (context, state) {
                           if (state is AuthLoadingState) {
-                            return const Center(child: CircularProgressIndicator());
+                            return const Center(
+                                child: CircularProgressIndicator());
                           }
                           return LargeButton(
                             onPressed: () {
                               if (connectivityState
-                              is ConnectivitySuccessState) {
+                                  is ConnectivitySuccessState) {
                                 BlocProvider.of<AuthBloc>(context).add(
                                   LoginEvent(emailController.text,
                                       passwordController.text),
@@ -144,7 +150,7 @@ class LoginPage extends StatelessWidget {
                                 .translate('login'),
                             backgroundColor: Theme.of(context).primaryColor,
                             textColor:
-                            Theme.of(context).colorScheme.onSecondary,
+                                Theme.of(context).colorScheme.onSecondary,
                           );
                         },
                       );

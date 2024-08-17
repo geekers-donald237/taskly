@@ -33,6 +33,11 @@ dependencies:
   localstorage: ^5.0.0
   get_storage: ^2.1.1
   google_sign_in: ^6.2.1
+  flutter_svg: ^2.0.10+1
+  table_calendar: ^3.0.9
+  bloc_concurrency: ^0.2.3
+  nb_utils: ^5.0.8
+
 
 
 dev_dependencies:
@@ -41,6 +46,8 @@ dev_dependencies:
   flutter_launcher_icons: "^0.13.1"
   build_runner:
   flutter_gen_runner:
+  mocktail: ^1.0.1
+
 
 # The following section is specific to Flutter packages.
 flutter:
@@ -51,6 +58,7 @@ flutter:
      - assets/images/
      - assets/fonts/
      - assets/i18n/
+     - assets/svgs/
 
 
   fonts:
